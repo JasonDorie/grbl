@@ -34,7 +34,7 @@
 // NOTE: OEMs can avoid the need to maintain/update the defaults.h and cpu_map.h files and use only
 // one configuration file by placing their specific defaults and pin map at the bottom of this file.
 // If doing so, simply comment out these two defines and see instructions below.
-//#define DEFAULTS_GENERIC
+// #define DEFAULTS_GENERIC
 #define CPU_MAP_ATMEGA328P // Arduino Uno CPU
 
 // Serial baud rate
@@ -102,15 +102,15 @@
 // on separate pin, but homed in one cycle. Also, it should be noted that the function of hard limits
 // will not be affected by pin sharing.
 // NOTE: Defaults are set for a traditional 3-axis CNC machine. Z-axis first to clear, followed by X & Y.
-#define HOMING_CYCLE_0 (1<<Z_AXIS)                // REQUIRED: First move Z to clear workspace.
-#define HOMING_CYCLE_1 ((1<<X_AXIS)|(1<<Y_AXIS))  // OPTIONAL: Then move X,Y at the same time.
+//#define HOMING_CYCLE_0 (1<<Z_AXIS)                // REQUIRED: First move Z to clear workspace.
+//#define HOMING_CYCLE_1 ((1<<X_AXIS)|(1<<Y_AXIS))  // OPTIONAL: Then move X,Y at the same time.
 // #define HOMING_CYCLE_2                         // OPTIONAL: Uncomment and add axes mask to enable
 
 // NOTE: The following are two examples to setup homing for 2-axis machines.
 // #define HOMING_CYCLE_0 ((1<<X_AXIS)|(1<<Y_AXIS))  // NOT COMPATIBLE WITH COREXY: Homes both X-Y in one cycle. 
 
-// #define HOMING_CYCLE_0 (1<<X_AXIS)  // COREXY COMPATIBLE: First home X
-// #define HOMING_CYCLE_1 (1<<Y_AXIS)  // COREXY COMPATIBLE: Then home Y
+ #define HOMING_CYCLE_0 (1<<X_AXIS)  // COREXY COMPATIBLE: First home X
+ #define HOMING_CYCLE_1 (1<<Y_AXIS)  // COREXY COMPATIBLE: Then home Y
 
 // Number of homing cycles performed after when the machine initially jogs to limit switches.
 // This help in preventing overshoot and should improve repeatability. This value should be one or
@@ -186,7 +186,9 @@
 // defined at (http://corexy.com/theory.html). Motors are assumed to positioned and wired exactly as
 // described, if not, motions may move in strange directions. Grbl requires the CoreXY A and B motors
 // have the same steps per mm internally.
-// #define COREXY // Default disabled. Uncomment to enable.
+ #define COREXY // Default disabled. Uncomment to enable.
+ //#define A_MOTOR X_AXIS
+ //#define B_MOTOR Y_AXIS
 
 // Inverts pin logic of the control command pins based on a mask. This essentially means you can use
 // normally-closed switches on the specified pins, rather than the default normally-open switches.
@@ -623,6 +625,39 @@
 // Paste CPU_MAP definitions here.
 
 // Paste default settings definitions here.
-
+  #define DEFAULT_X_STEPS_PER_MM 200.0
+  #define DEFAULT_Y_STEPS_PER_MM 200.0
+  #define DEFAULT_Z_STEPS_PER_MM 200.0
+  #define DEFAULT_X_MAX_RATE 6000.0 // mm/min
+  #define DEFAULT_Y_MAX_RATE 6000.0 // mm/min
+  #define DEFAULT_Z_MAX_RATE 6000.0 // mm/min
+  #define DEFAULT_X_ACCELERATION (750.0*60*60) // 10*60*60 mm/min^2 = 10 mm/sec^2
+  #define DEFAULT_Y_ACCELERATION (750.0*60*60) // 10*60*60 mm/min^2 = 10 mm/sec^2
+  #define DEFAULT_Z_ACCELERATION (750.0*60*60) // 10*60*60 mm/min^2 = 10 mm/sec^2
+  #define DEFAULT_X_MAX_TRAVEL 300.0 // mm NOTE: Must be a positive value.
+  #define DEFAULT_Y_MAX_TRAVEL 210.0 // mm NOTE: Must be a positive value.
+  #define DEFAULT_Z_MAX_TRAVEL 50.0 // mm NOTE: Must be a positive value.
+  #define DEFAULT_SPINDLE_RPM_MAX 1000.0 // rpm
+  #define DEFAULT_SPINDLE_RPM_MIN 0.0 // rpm
+  #define DEFAULT_STEP_PULSE_MICROSECONDS 10
+  #define DEFAULT_STEPPING_INVERT_MASK 0
+  #define DEFAULT_DIRECTION_INVERT_MASK 2
+  #define DEFAULT_STEPPER_IDLE_LOCK_TIME 25 // msec (0-254, 255 keeps steppers enabled)
+  #define DEFAULT_STATUS_REPORT_MASK 1 // MPos enabled
+  #define DEFAULT_JUNCTION_DEVIATION 0.01 // mm
+  #define DEFAULT_ARC_TOLERANCE 0.002 // mm
+  #define DEFAULT_REPORT_INCHES 0 // false
+  #define DEFAULT_INVERT_ST_ENABLE 0 // false
+  #define DEFAULT_INVERT_LIMIT_PINS 0 // false
+  #define DEFAULT_SOFT_LIMIT_ENABLE 0 // false
+  #define DEFAULT_HARD_LIMIT_ENABLE 0  // false
+  #define DEFAULT_INVERT_PROBE_PIN 0 // false
+  #define DEFAULT_LASER_MODE 1 // false
+  #define DEFAULT_HOMING_ENABLE 1  // false
+  #define DEFAULT_HOMING_DIR_MASK 0 // move positive dir
+  #define DEFAULT_HOMING_FEED_RATE 100.0 // mm/min
+  #define DEFAULT_HOMING_SEEK_RATE 2500.0 // mm/min
+  #define DEFAULT_HOMING_DEBOUNCE_DELAY 250 // msec (0-65k)
+  #define DEFAULT_HOMING_PULLOFF 1.0 // mm
 
 #endif
